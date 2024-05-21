@@ -19,27 +19,17 @@ export const ChatBoard: React.FC<ChatBoardProps> = ({ chat, isLoading }) => {
     <Board>
       {!!chat.length &&
         chat.map((item: chat, index: number) => {
-          if (item.iserror) {
-            return (
+          return (
+            <>
+              <div className="chat-user">{item.type}</div>
               <ChatItem
-                key={`${index}`}
+                key={`${item.text}-${index}`}
                 isuser={item.type}
                 iserror={item.iserror}
               >
-                <Typography variant="body1">
-                  There was an error on trip validation
-                </Typography>
+                {item.text}
               </ChatItem>
-            );
-          }
-          return (
-            <ChatItem
-              key={`${item.text}-${index}`}
-              isuser={item.type}
-              iserror={item.iserror}
-            >
-              <Typography variant="body1">{item.text}</Typography>
-            </ChatItem>
+            </>
           );
         })}
       {isLoading && <LoaderWithTitle title="Loading..." />}
@@ -48,23 +38,32 @@ export const ChatBoard: React.FC<ChatBoardProps> = ({ chat, isLoading }) => {
 };
 
 const Board = styled.div`
-  height: 550px;
+  max-height: 620px;
   overflow-y: auto;
   overflow-x: hidden;
+  position: absolute;
+  width: 100%;
+
+  .chat-user {
+    position: relative;
+    top: -5;
+    left: 0;
+    font-size: 13px;
+  }
 `;
 
 const ChatItem = styled.div<{ isuser: string; iserror: boolean }>`
   color: ${({ isuser, iserror }) =>
     isuser === "user" ? "blue" : iserror ? "red" : "green"};
-  maxWidth: '60%',
-  padding: '12px 16px',
-  margin: '8px 0',
-  alignSelf: ${({ isuser }) => (isuser === "user" ? "flex-end" : "flex-start")},
-  backgroundColor: ${({ isuser }) =>
-    isuser === "user" ? "#007bff" : "#e0e0e0"},
-  wordWrap: 'break-word',
-  whiteSpace: 'pre-wrap',
-  boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.2)',
-  border: 1px solid black;
-  border-radios: 3px;
+  padding: 12px 16px;
+  font-size: 15px;
+  margin: 8px 0;
+  backgroundcolor: ${({ isuser }) =>
+    isuser === "user" ? "#007bff" : "#e0e0e0"};
+  wordwrap: break-word;
+  whitespace: pre-wrap;
+  boxshadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+  border: 1px solid #e0e0e0;
+  border-radius: 50px;
+  // width: 100%;
 `;

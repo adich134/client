@@ -29,44 +29,33 @@ export const SearchHistory: React.FC<SearchHistoryProps> = () => {
   return (
     <Container>
       <h2>Recent Trips</h2>
-      <ul>
+      <ol>
         {trips.map((item, index) => {
-          console.log("itemitemitemitem ", item)
-          if (item.iserror) {
-            return (
-              <ChatItem key={`${index}`} iserror={item.iserror}>
-                <ChatItem>There was an error on trip validation</ChatItem>
-              </ChatItem>
-            );
-          }
           return (
-            <ChatItem key={index}>
+            <ChatItem key={`${index}`} iserror={item.iserror}>
               <strong>{item.query}</strong> : {item.response}
             </ChatItem>
           );
         })}
-      </ul>
+      </ol>
     </Container>
   );
 };
 
 const Container = styled.div`
-  height: 550px;
-  overflow-x: hidden;
+  height: 85vh;
+  line-height: 30px;
+  width: 100vh;
   margin: 20px auto;
-  text-align: flex-start;
-  overflow: hidden;
+  text-align: start;
+  overflow-x: auto;
 `;
 
-const ChatItem = styled.li<{ iserror?: boolean }>`
+const ChatItem = styled.li<{ iserror: boolean }>`
   color: ${({ iserror }) => (iserror ? "red" : "green")};
-  maxWidth: '60%',
-  padding: '12px 16px',
-  margin: '8px 0',
-  
-  wordWrap: 'break-word',
-  whiteSpace: 'pre-wrap',
-  boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.2)',
-  border: 1px solid black;
-  border-radios: 3px;
+  maxwidth: 60%;
+  padding: 12px 16px;
+  margin: 8px 0;
+  wordwrap: break-word;
+  whitespace: pre-wrap;
 `;

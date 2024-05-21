@@ -1,8 +1,7 @@
-import { Button, Grid, TextField, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Button, Grid, TextField } from "@mui/material";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { ChatBoard } from "../components/ChatBoard";
-import { useDebounce } from "../hooks/useDebounce";
 import { tripService } from "../services/tripService";
 
 interface HomeProps {}
@@ -23,7 +22,7 @@ export const Home: React.FC<HomeProps> = () => {
 
   const handleSubmit = async () => {
     try {
-      setIsLoading(true)
+      setIsLoading(true);
       setChat((prevState) => {
         return [
           ...prevState,
@@ -32,23 +31,19 @@ export const Home: React.FC<HomeProps> = () => {
       });
       setInputValue("");
       let response = await tripService.route(inputValue);
-      // response = JSON.parse(response)
-      console.log("response lll ", response)
-      await wait(200);
-      // if (!response.response) {
+      await wait(800);
       setChat((prevState) => {
         return [
           ...prevState,
           {
-            text: response.createdTrip.response,
+            text: response?.createdTrip?.response,
             type: "model",
-            iserror: !response.isValidResponse,
+            iserror: response.createdTrip.iserror,
           },
         ];
       });
       // }
-      setIsLoading(false)
-
+      setIsLoading(false);
     } catch (error) {
       console.error("Error sending data to server:", error);
     }
@@ -65,12 +60,12 @@ export const Home: React.FC<HomeProps> = () => {
             label="Search"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
+            fullWidth={true}
           />
           <Button
             onClick={handleSubmit}
             variant="contained"
             color="primary"
-            style={{ marginLeft: "10px" }}
             disabled={!inputValue}
           >
             Submit
@@ -83,11 +78,15 @@ export const Home: React.FC<HomeProps> = () => {
 
 const ContainerGrid = styled(Grid)`
   margin: 20px auto;
-  text-align: center;
+  text-align: start;
   overflow: hidden;
   font-size: 40px;
+  width: 100%;
 
   .fotter {
-    width: 100%;
+    display: flex;
+    > button {
+      margin-left: 15px;
+    }
   }
 `;
