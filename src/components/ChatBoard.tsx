@@ -42,8 +42,9 @@ const Board = styled.div`
   overflow-y: auto;
   overflow-x: hidden;
   position: absolute;
-  width: 100%;
-
+  max-width: 865px;
+  min-width: 500px;
+  
   .chat-user {
     position: relative;
     top: -5;
@@ -60,10 +61,10 @@ const ChatItem = styled.div<{ isuser: string; iserror: boolean }>`
   margin: 8px 0;
   backgroundcolor: ${({ isuser }) =>
     isuser === "user" ? "#007bff" : "#e0e0e0"};
-  wordwrap: break-word;
-  whitespace: pre-wrap;
+  word-wrap: break-word;
+  white-space: pre-wrap;
   boxshadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
   border: 1px solid #e0e0e0;
   border-radius: 50px;
-  // width: 100%;
+  width: 90%;
 `;

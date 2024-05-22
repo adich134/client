@@ -12,22 +12,7 @@ const API = axios.create({
 const route = async (query: string) => {
   try {
     const data: any = { query };
-    console.log('ddddddddddddddddddddddd ', query)
     const response = await API.post("/route", data);
-    // const response = await API.post(
-    //   "/route",
-    //   { query },
-    //   {
-    //     // timeout: 5000,
-    //     // proxy: proxyConfig,
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Accept: "application/json",
-    //     },
-    //   }
-    // );
-
-    console.log(" adi adi adi---------------------- ", response)
     apiValidator.validateStatus(response, 201);
 
     return response.data;

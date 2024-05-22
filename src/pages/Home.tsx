@@ -38,7 +38,7 @@ export const Home: React.FC<HomeProps> = () => {
           {
             text: response?.createdTrip?.response,
             type: "model",
-            iserror: response.createdTrip.iserror,
+            iserror: response?.createdTrip?.iserror,
           },
         ];
       });
@@ -57,10 +57,12 @@ export const Home: React.FC<HomeProps> = () => {
         <div className="fotter">
           <TextField
             autoFocus
-            label="Search"
+            label="Search for trip..."
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             fullWidth={true}
+            multiline
+            maxRows="2"
           />
           <Button
             onClick={handleSubmit}
